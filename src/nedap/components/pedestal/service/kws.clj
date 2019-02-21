@@ -4,6 +4,8 @@
    [nedap.components.pedestal.router.kws :as router]
    [nedap.utils.speced :as speced]))
 
+(def dependencies [::router/component])
+
 (speced/def-with-doc ::defaults-kind
   "The kind of defaults to be used. Note that this a more constrained notion than 'environment' (which can include staging)."
   #{:dev :production})
@@ -18,6 +20,6 @@
 
 (speced/def-with-doc ::initialized-component
   "This component, after Component injects dependencies to it"
-  (spec/merge ::uninitialized-component (spec/keys :req [::router/component])))
+  (eval `(spec/merge ::uninitialized-component (spec/keys :req ~dependencies))))
 
 (speced/def-with-doc ::component "This component" ::initialized-component)
