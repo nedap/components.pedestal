@@ -31,13 +31,13 @@
     (cond-> prod-map
       (not dev?) (assoc ::server/routes routes)
       dev?       (assoc ::server/routes #(route/expand-routes routes))
-      true       (server/default-interceptors)
-      dev?       (server/dev-interceptors)
       dev?       (merge dev-map)
-      true       (deep-merge pedestal-options))))
+      true       (deep-merge pedestal-options)
+      true       (server/default-interceptors)
+      dev?       (server/dev-interceptors))))
 
 (defn new [opts]
   {:pre [(check! ::service/uninitialized-component opts)]}
   (implement opts
-             component/start start
-             component/stop identity))
+    component/start start
+    component/stop identity))

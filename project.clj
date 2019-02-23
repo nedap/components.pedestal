@@ -1,4 +1,4 @@
-(defproject com.nedap.staffing-solutions/components.pedestal "0.1.1"
+(defproject com.nedap.staffing-solutions/components.pedestal "0.1.2"
   :description "Pedestal server as a Clojure Component"
 
   :url "https://github.com/nedap/components.pedestal"
