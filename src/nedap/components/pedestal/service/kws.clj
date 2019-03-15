@@ -14,9 +14,15 @@
   "To be deep-merged with the component's defaults."
   map?)
 
+(speced/def-with-doc ::expand-routes?
+  "Should the routes be expanded with `io.pedestal.http.route/expand-routes`?
+
+That may or may not be necessary, depending on the chosen routes syntax"
+  boolean?)
+
 (speced/def-with-doc ::uninitialized-component
   "This component, before Component injects dependencies to it"
-  (spec/keys :req [::defaults-kind ::pedestal-options]))
+  (spec/keys :req [::defaults-kind ::pedestal-options ::expand-routes?]))
 
 (speced/def-with-doc ::initialized-component
   "This component, after Component injects dependencies to it"

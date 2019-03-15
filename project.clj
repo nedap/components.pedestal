@@ -1,10 +1,10 @@
-(defproject com.nedap.staffing-solutions/components.pedestal "0.1.2"
+(defproject com.nedap.staffing-solutions/components.pedestal "0.2.0"
   :description "Pedestal server as a Clojure Component"
 
   :url "https://github.com/nedap/components.pedestal"
 
   :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+            :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
   :repositories {"nedap-snapshots" {:url      "https://nedap.jfrog.io/nedap/staffing-solutions/"
                                     :username :env/artifactory_user
@@ -13,7 +13,7 @@
                                     :username :env/artifactory_user
                                     :password :env/artifactory_pass}}
 
-  :deploy-repositories [["releases" {:url "https://nedap.jfrog.io/nedap/staffing-solutions/"
+  :deploy-repositories [["releases" {:url           "https://nedap.jfrog.io/nedap/staffing-solutions/"
                                      :sign-releases false}]]
 
   :repository-auth {#"https://nedap.jfrog\.io/nedap/staffing-solutions/"

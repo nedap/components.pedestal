@@ -11,33 +11,33 @@
    [nedap.utils.spec.api :refer [check!]]))
 
 (def prod-map
-  {::server/resource-path "/public"
-   ::server/type :jetty
-   ::server/port 8080
+  {::server/resource-path     "/public"
+   ::server/type              :jetty
+   ::server/port              8080
    ::server/container-options {:h2c? true
-                               :h2? false
+                               :h2?  false
                                :ssl? false}})
 
 (def dev-map
-  {::server/join? false
+  {::server/join?           false
    ::server/allowed-origins {:creds true :allowed-origins (constantly true)}
-   ::server/secure-headers {:content-security-policy-settings {:object-src "'none'"}}})
+   ::server/secure-headers  {:content-security-policy-settings {:object-src "'none'"}}})
 
 (defn start [{{::router/keys [routes]} ::router/component
-              ::service/keys [defaults-kind pedestal-options]
-              :as this}]
+              ::service/keys           [defaults-kind pedestal-options expand-routes?]
+              :as                      this}]
   {:pre [(check! ::service/initialized-component this)]}
   (let [dev? (= :dev defaults-kind)]
     (cond-> prod-map
-      (not dev?) (assoc ::server/routes routes)
-      dev?       (assoc ::server/routes #(route/expand-routes routes))
-      dev?       (merge dev-map)
-      true       (deep-merge pedestal-options)
-      true       (server/default-interceptors)
-      dev?       (server/dev-interceptors))))
+      (not expand-routes?) (assoc ::server/routes routes)
+      expand-routes?       (assoc ::server/routes #(route/expand-routes routes))
+      dev?                 (merge dev-map)
+      true                 (deep-merge pedestal-options)
+      true                 (server/default-interceptors)
+      dev?                 (server/dev-interceptors))))
 
 (defn new [opts]
   {:pre [(check! ::service/uninitialized-component opts)]}
   (implement opts
     component/start start
-    component/stop identity))
+    component/stop  identity))
