@@ -1,4 +1,4 @@
-(defproject com.nedap.staffing-solutions/components.pedestal "0.2.0"
+(defproject com.nedap.staffing-solutions/components.pedestal "0.2.1"
   :description "Pedestal server as a Clojure Component"
 
   :url "https://github.com/nedap/components.pedestal"
@@ -22,8 +22,8 @@
 
   :dependencies [[ch.qos.logback/logback-classic "1.2.3" :exclusions [org.slf4j/slf4j-api]]
                  [com.grzm/component.pedestal "0.1.7"]
-                 [com.nedap.staffing-solutions/utils.modular "0.1.1"]
-                 [com.nedap.staffing-solutions/utils.spec "0.1.1"]
+                 [com.nedap.staffing-solutions/utils.modular "0.2.2"]
+                 [com.nedap.staffing-solutions/utils.spec "0.6.1"]
                  [com.stuartsierra/component "0.4.0"]
                  [io.pedestal/pedestal.jetty "0.5.5"]
                  [io.pedestal/pedestal.service "0.5.5"]
