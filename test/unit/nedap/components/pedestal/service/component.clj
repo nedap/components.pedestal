@@ -66,7 +66,6 @@
          ::service/expand-routes?   false
          ::router/component         {::router/routes #{}}
          ::service/pedestal-options {::pedestal.http/container-options {:h2c? :OMG
-                                                                        :h2?  :FOO
                                                                         :ssl? :BAR}}}, {:h2c? :OMG
-                                                                                        :h2?  :FOO
+                                                                                        :h2?  false
                                                                                         :ssl? :BAR}))))
