@@ -20,5 +20,4 @@ and a [dependency injection mechanism](https://github.com/grzm/component.pedesta
 
 Copyright © Nedap
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0 which is available at http://www.eclipse.org/legal/epl-2.0.
