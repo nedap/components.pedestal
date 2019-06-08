@@ -22,10 +22,11 @@ That may or may not be necessary, depending on the chosen routes syntax"
 
 (speced/def-with-doc ::uninitialized-component
   "This component, before Component injects dependencies to it"
-  (spec/keys :req [::defaults-kind ::pedestal-options ::expand-routes?]))
+  (spec/keys :req [::defaults-kind ::expand-routes?]))
 
 (speced/def-with-doc ::initialized-component
   "This component, after Component injects dependencies to it"
-  (eval `(spec/merge ::uninitialized-component (spec/keys :req ~dependencies))))
+  (eval `(spec/merge ::uninitialized-component
+                     (spec/keys :req ~(conj dependencies ::pedestal-options)))))
 
 (speced/def-with-doc ::component "This component" ::initialized-component)
