@@ -35,7 +35,7 @@
                  dev?                 (pedestal.http/dev-interceptors))]
     (merge this config)))
 
-(defn new [^::service/uninitialized-component opts]
+(speced/defn new [^::service/uninitialized-component opts]
   (implement opts
     component/start start
     component/stop  identity))

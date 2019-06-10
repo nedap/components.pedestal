@@ -7,8 +7,8 @@
    [clojure.test :refer [run-all-tests run-tests]]
    [clojure.tools.namespace.repl :refer [refresh set-refresh-dirs]]
    [criterium.core :refer [quick-bench]]
-   [formatting-stack.branch-formatter :refer [format-and-lint-branch!]]
-   [formatting-stack.project-formatter :refer [format-and-lint-project!]]
+   [formatting-stack.branch-formatter :refer [format-and-lint-branch! lint-branch!]]
+   [formatting-stack.project-formatter :refer [format-and-lint-project! lint-project!]]
    [lambdaisland.deep-diff]))
 
 (set-refresh-dirs "src" "test" "dev")
