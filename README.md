@@ -13,7 +13,7 @@ and a [dependency injection mechanism](https://github.com/grzm/component.pedesta
 ## Installation
 
 ```clojure
-[com.nedap.staffing-solutions/components.pedestal "0.3.0"]
+[com.nedap.staffing-solutions/components.pedestal "0.3.1"]
 ```
 
 ## License
