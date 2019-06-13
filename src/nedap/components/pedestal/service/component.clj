@@ -26,13 +26,17 @@
                                           ::service/keys           [defaults-kind pedestal-options expand-routes?]
                                           :as                      ^::service/initialized-component this}]
   (let [dev? (= :dev defaults-kind)
+        ;; routes may be passed directly (via `::router/component`) or indirectly (via `pedestal-options`). Handle that:
+        routes (when routes
+                 (if expand-routes?
+                   #(route/expand-routes routes)
+                   routes))
         config (cond-> prod-map
-                 (not expand-routes?) (assoc ::pedestal.http/routes routes)
-                 expand-routes?       (assoc ::pedestal.http/routes #(route/expand-routes routes))
-                 dev?                 (merge dev-map)
-                 pedestal-options     (deep-merge pedestal-options)
-                 true                 (pedestal.http/default-interceptors)
-                 dev?                 (pedestal.http/dev-interceptors))]
+                 routes           (assoc ::pedestal.http/routes routes)
+                 dev?             (merge dev-map)
+                 pedestal-options (deep-merge pedestal-options)
+                 true             (pedestal.http/default-interceptors)
+                 dev?             (pedestal.http/dev-interceptors))]
     (merge this config)))
 
 (speced/defn new [^::service/uninitialized-component opts]
