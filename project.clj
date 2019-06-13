@@ -5,7 +5,6 @@
                  [com.nedap.staffing-solutions/utils.modular "0.3.0"]
                  [com.nedap.staffing-solutions/utils.spec "0.8.2"]
                  [com.stuartsierra/component "0.4.0"]
-                 [com.stuartsierra/component "0.4.0"]
                  [com.taoensso/timbre "4.10.0"]
                  [io.pedestal/pedestal.jetty "0.5.5"]
                  [io.pedestal/pedestal.service "0.5.5"]
