@@ -7,6 +7,7 @@
                  [com.stuartsierra/component "0.4.0"]
                  [io.pedestal/pedestal.jetty "0.5.5"]
                  [io.pedestal/pedestal.service "0.5.5"]
+                 [medley "1.1.0"]
                  [org.clojure/clojure "1.10.1"]
                  [org.slf4j/jcl-over-slf4j "1.7.26"]
                  [org.slf4j/jul-to-slf4j "1.7.26"]
