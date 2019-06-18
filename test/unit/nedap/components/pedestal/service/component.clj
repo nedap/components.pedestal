@@ -68,4 +68,20 @@
          ::service/pedestal-options {::pedestal.http/container-options {:h2c? :OMG
                                                                         :ssl? :BAR}}}, {:h2c? :OMG
                                                                                         :h2?  false
-                                                                                        :ssl? :BAR}))))
+                                                                                        :ssl? :BAR}))
+
+    (testing "It can specify routes"
+      (are [desc input expected] (= expected
+                                    (-> input sut/new sut/start ::pedestal.http/routes))
+
+        "Default"
+        {::service/defaults-kind    :dev
+         ::service/expand-routes?   false
+         ::router/component         {::router/routes #{}}
+         ::service/pedestal-options {}},                                #{}
+
+        "With pedestal options"
+        {::service/defaults-kind    :dev
+         ::service/expand-routes?   false
+         ::router/component         {::router/routes #{}}
+         ::service/pedestal-options {::pedestal.http/routes #{1 2 3}}}, #{1 2 3}))))
