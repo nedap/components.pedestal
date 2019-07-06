@@ -1,8 +1,8 @@
 (ns nedap.components.pedestal.server.component
   (:require
-   [com.grzm.component.pedestal :as pedestal-component]
+   [com.grzm.component.pedestal :refer [add-component-interceptor]]
    [com.stuartsierra.component :as component]
-   [io.pedestal.http :as server]
+   [io.pedestal.http :as pedestal.http]
    [nedap.components.pedestal.service.kws :as service]
    [nedap.utils.modular.api :refer [implement]]
    [nedap.utils.speced :as speced]))
@@ -30,9 +30,9 @@ Normally true, except on `:test` env."
     this
     (let [will-start? (start-stop-predicate service)
           server (cond-> service
-                   true        (pedestal-component/add-component-interceptor this)
-                   true        server/create-server
-                   will-start? server/start)]
+                   true        (add-component-interceptor this)
+                   true        pedestal.http/create-server
+                   will-start? pedestal.http/start)]
       (assoc this ::server server))))
 
 (speced/defn stop [{service                                      ::service/component
@@ -41,12 +41,12 @@ Normally true, except on `:test` env."
                     :as                                          this}]
   (when (and server
              (start-stop-predicate service))
-    (server/stop server))
+    (pedestal.http/stop server))
   (assoc this ::server nil))
 
 (defn new [& {::keys [start-stop-predicate]
               :or    {start-stop-predicate should-start-or-stop?}
               :as    this}]
-  (implement this
+  (implement (or this {})
     component/start start
     component/stop  stop))
