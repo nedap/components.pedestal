@@ -1,4 +1,4 @@
-(defproject com.nedap.staffing-solutions/components.pedestal "0.4.0"
+(defproject com.nedap.staffing-solutions/components.pedestal "0.4.1"
   ;; Please keep the dependencies sorted a-z.
   :dependencies [[ch.qos.logback/logback-classic "1.2.3" :exclusions [org.slf4j/slf4j-api]]
                  [com.grzm/component.pedestal "0.1.7"]
