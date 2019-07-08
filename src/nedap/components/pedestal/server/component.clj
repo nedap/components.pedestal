@@ -22,7 +22,7 @@ Normally true, except on `:test` env."
 (defn should-start-or-stop? [service]
   (not (test? service)))
 
-(speced/defn start [{service                                      ::service/component
+(speced/defn start [{^::service/component  service                ::service/component
                      server                                       ::server
                      ^::start-stop-predicate start-stop-predicate ::start-stop-predicate
                      :as                                          this}]
@@ -35,7 +35,7 @@ Normally true, except on `:test` env."
                    will-start? pedestal.http/start)]
       (assoc this ::server server))))
 
-(speced/defn stop [{service                                      ::service/component
+(speced/defn stop [{^::service/component service                 ::service/component
                     server                                       ::server
                     ^::start-stop-predicate start-stop-predicate ::start-stop-predicate
                     :as                                          this}]
@@ -44,9 +44,13 @@ Normally true, except on `:test` env."
     (pedestal.http/stop server))
   (assoc this ::server nil))
 
-(defn new [& {::keys [start-stop-predicate]
-              :or    {start-stop-predicate should-start-or-stop?}
-              :as    this}]
-  (implement (or this {})
-    component/start start
-    component/stop  stop))
+(defn new
+  ([]
+   (nedap.components.pedestal.server.component/new {}))
+
+  ([{::keys [start-stop-predicate]
+     :or    {start-stop-predicate should-start-or-stop?}
+     :as    this}]
+   (implement (assoc this ::start-stop-predicate start-stop-predicate)
+     component/start start
+     component/stop  stop)))
