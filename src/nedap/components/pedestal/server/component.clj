@@ -4,8 +4,8 @@
    [com.stuartsierra.component :as component]
    [io.pedestal.http :as pedestal.http]
    [nedap.components.pedestal.service.kws :as service]
-   [nedap.utils.modular.api :refer [implement]]
-   [nedap.utils.speced :as speced]))
+   [nedap.speced.def :as speced]
+   [nedap.utils.modular.api :refer [implement]]))
 
 (speced/def-with-doc ::start-stop-predicate
   "A fn with the following signature: `(fn ^boolean? [^::service/component service])`.

@@ -8,6 +8,7 @@
    [clojure.tools.namespace.repl :refer [refresh set-refresh-dirs]]
    [criterium.core :refer [quick-bench]]
    [formatting-stack.branch-formatter :refer [format-and-lint-branch! lint-branch!]]
+   [formatting-stack.compilers.test-runner :refer [test!]]
    [formatting-stack.project-formatter :refer [format-and-lint-project! lint-project!]]
    [lambdaisland.deep-diff]))
 
@@ -15,17 +16,23 @@
 
 (defn suite []
   (refresh)
-  (run-all-tests #".*\.nedap\.components\.pedestal\..*"))
+  (run-all-tests #".*\.nedap\.components\.pedestal.*"))
 
 (defn unit []
   (refresh)
-  (run-all-tests #"unit\.nedap\.components\.pedestal\..*"))
+  (run-all-tests #"unit\.nedap\.components\.pedestal.*"))
 
 (defn slow []
   (refresh)
-  (run-all-tests #"integration\.nedap\.components\.pedestal\..*"))
+  (run-all-tests #"integration\.nedap\.components\.pedestal.*"))
 
 (defn diff [x y]
   (-> x
       (lambdaisland.deep-diff/diff y)
       (lambdaisland.deep-diff/pretty-print)))
+
+(defn gt
+  "gt stands for git tests"
+  []
+  (refresh)
+  (test!))

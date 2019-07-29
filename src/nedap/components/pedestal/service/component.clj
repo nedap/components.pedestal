@@ -6,8 +6,8 @@
    [medley.core :refer [deep-merge]]
    [nedap.components.pedestal.router.kws :as router]
    [nedap.components.pedestal.service.kws :as service]
-   [nedap.utils.modular.api :refer [implement]]
-   [nedap.utils.speced :as speced]))
+   [nedap.speced.def :as speced]
+   [nedap.utils.modular.api :refer [implement]]))
 
 (def prod-map
   {::pedestal.http/resource-path     "/public"

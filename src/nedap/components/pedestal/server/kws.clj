@@ -2,7 +2,7 @@
   (:require
    [clojure.spec.alpha :as spec]
    [nedap.components.pedestal.service.kws :as service]
-   [nedap.utils.speced :as speced]))
+   [nedap.speced.def :as speced]))
 
 (def dependencies [::service/component])
 

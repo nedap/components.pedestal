@@ -2,7 +2,7 @@
   (:require
    [clojure.spec.alpha :as spec]
    [nedap.components.pedestal.router.kws :as router]
-   [nedap.utils.speced :as speced]))
+   [nedap.speced.def :as speced]))
 
 (def dependencies [::router/component])
 

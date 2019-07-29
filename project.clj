@@ -5,15 +5,14 @@
                   :exclusions [org.slf4j/slf4j-api]]
                  [com.grzm/component.pedestal "0.1.7"
                   :exclusions [ring/ring-codec]]
-                 [com.nedap.staffing-solutions/utils.modular "0.4.0"]
-                 [com.nedap.staffing-solutions/utils.spec "0.8.2"
+                 [com.nedap.staffing-solutions/utils.modular "2.0.0"]
+                 [com.nedap.staffing-solutions/speced.def "1.0.0"
                   :exclusions [org.clojure/spec.alpha]]
                  [com.stuartsierra/component "0.4.0"]
                  [io.pedestal/pedestal.jetty "0.5.5"]
                  [io.pedestal/pedestal.service "0.5.5"]
                  [medley "1.1.0"]
                  [org.clojure/clojure "1.10.1"]
-                 [org.clojure/spec.alpha "0.2.176"]
                  [org.slf4j/jcl-over-slf4j "1.7.26"]
                  [org.slf4j/jul-to-slf4j "1.7.26"]
                  [org.slf4j/log4j-over-slf4j "1.7.26"]]
@@ -58,7 +57,7 @@
                                   [com.clojure-goes-fast/clj-java-decompiler "0.2.1"]
                                   [com.taoensso/timbre "4.10.0"]
                                   [criterium "0.4.4"]
-                                  [formatting-stack "0.18.4"
+                                  [formatting-stack "1.0.0-alpha3"
                                    :exclusions [rewrite-clj]]
                                   [lambdaisland/deep-diff "0.0-29"]
                                   [medley "1.1.0"]
@@ -74,4 +73,4 @@
              :ci  {:pedantic?    :abort
                    :jvm-opts     ["-Dclojure.main.report=stderr"]
                    :global-vars  {*assert* true} ;; `ci.release-workflow` relies on runtime assertions
-                   :dependencies [[com.nedap.staffing-solutions/ci.release-workflow "1.1.0-alpha6"]]}})
+                   :dependencies [[com.nedap.staffing-solutions/ci.release-workflow "1.3.0-alpha3"]]}})

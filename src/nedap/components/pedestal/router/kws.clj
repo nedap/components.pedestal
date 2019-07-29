@@ -1,6 +1,6 @@
 (ns nedap.components.pedestal.router.kws
   (:require
-   [nedap.utils.speced :as speced]))
+   [nedap.speced.def :as speced]))
 
 (speced/def-with-doc ::routes "The routes configured for this application" some?)
 
