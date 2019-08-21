@@ -1,4 +1,4 @@
-(defproject com.nedap.staffing-solutions/components.pedestal "1.0.0"
+(defproject com.nedap.staffing-solutions/components.pedestal "1.1.0-alpha1"
   ;; Please don't bump the library version by hand - use ci.release-workflow instead.
   ;; Please keep the dependencies sorted a-z.
   :dependencies [[ch.qos.logback/logback-classic "1.2.3"
