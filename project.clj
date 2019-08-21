@@ -42,7 +42,6 @@
 
   :monkeypatch-clojure-test false
 
-  :repl-options {:init-ns dev}
 
   ;; A variety of common dependencies are bundled with `nedap/lein-template`.
   ;; They are divided into two categories:
@@ -68,7 +67,8 @@
                                   [org.clojure/tools.reader "1.1.1" #_"transitive"]
                                   [rewrite-clj "0.6.1" #_"transitive"]]
                    :plugins      [[lein-cloverage "1.0.13"]]
-                   :source-paths ["dev" "test"]}
+                   :source-paths ["dev" "test"]
+                   :repl-options {:init-ns dev}}
 
              :ci  {:pedantic?    :abort
                    :jvm-opts     ["-Dclojure.main.report=stderr"]

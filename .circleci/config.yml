@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
     # specify the version you desire here
-    - image: circleci/clojure:lein-2.8.1-node
+    - image: circleci/clojure:lein-2.9.1-node
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
@@ -40,7 +40,7 @@ jobs:
 
     - run:
         name: 'Run JVM tests, reporting coverage'
-        command: lein trampoline cloverage --lcov --junit -o coverage/
+        command: lein with-profile -dev trampoline cloverage --lcov --junit -o coverage/
 
     - store_test_results:
         path: ~/repo/coverage
@@ -50,7 +50,7 @@ jobs:
 
   jfrog:
     docker:
-      - image: circleci/clojure:lein-2.8.1-node
+      - image: circleci/clojure:lein-2.9.1-node
 
     working_directory: ~/repo
 
