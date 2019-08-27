@@ -6,4 +6,4 @@
 
 (def dependencies [::service/component])
 
-(speced/def-with-doc ::component "This component" (eval `(spec/keys :req ~dependencies)))
+(speced/def-with-doc ::component "This component" (spec/keys :req [::service/component]))

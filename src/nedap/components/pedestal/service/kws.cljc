@@ -26,7 +26,7 @@ That may or may not be necessary, depending on the chosen routes syntax"
 
 (speced/def-with-doc ::initialized-component
   "This component, after Component injects dependencies to it"
-  (eval `(spec/merge ::uninitialized-component
-                     (spec/keys :req ~(conj dependencies ::pedestal-options)))))
+  (spec/merge ::uninitialized-component
+              (spec/keys :req [::router/component ::pedestal-options])))
 
 (speced/def-with-doc ::component "This component" ::initialized-component)
