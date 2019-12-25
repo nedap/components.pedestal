@@ -18,7 +18,7 @@ commands:
 executors:
   lein-executor:
     docker:
-      - image: circleci/clojure:openjdk-8-lein-2.9.1-node
+      - image: circleci/clojure:openjdk-8-lein-2.9.1
     working_directory: ~/repo
     environment:
       LEIN_ROOT: "true"
@@ -33,8 +33,8 @@ jobs:
           name: 'Run JVM tests, reporting coverage'
           command: lein with-profile -dev,+test trampoline cloverage --lcov --junit -o coverage/
       - run:
-          name: 'Ensure production isolation'
-          command: lein with-profile -dev check
+          name: 'Ensure production isolation, check for boxed math'
+          command: lein with-profile -dev,+check check
       - store_test_results:
           path: ~/repo/coverage
       - store_artifacts:
