@@ -35,10 +35,10 @@ Normally true, except on `:test` env."
                    will-start? pedestal.http/start)]
       (assoc this ::server server))))
 
-(speced/defn stop [{^::service/component service                 ::service/component
-                    server                                       ::server
-                    ^::start-stop-predicate start-stop-predicate ::start-stop-predicate
-                    :as                                          this}]
+(speced/defn stop [{^::speced/nilable service                                      ::service/component
+                    server                                                         ::server
+                    ^::speced/nilable ^::start-stop-predicate start-stop-predicate ::start-stop-predicate
+                    :as                                                            this}]
   (when (and server
              (start-stop-predicate service))
     (pedestal.http/stop server))
