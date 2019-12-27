@@ -32,6 +32,7 @@
   :repository-auth {#"https://nedap.jfrog\.io/nedap/staffing-solutions/"
                     {:username :env/artifactory_user
                      :password :env/artifactory_pass}}
+
   :target-path "target/%s"
 
   :test-paths ["src" "test"]

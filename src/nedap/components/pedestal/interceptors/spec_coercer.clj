@@ -5,7 +5,11 @@
    [nedap.speced.def :as speced]
    [nedap.utils.spec.api :as utils.spec]))
 
-(spec/def ::params-key #{:params :route-params :query-params :form-params :multipart-params})
+(spec/def ::params-key #{:form-params
+                         :multipart-params
+                         :params
+                         :query-params
+                         :route-params})
 
 (speced/defn param-spec-interceptor
   "Coerces params according to a spec. If invalid, aborts the interceptor-chain with 422, explaining the issue."
