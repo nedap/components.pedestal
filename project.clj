@@ -17,7 +17,7 @@
                  [org.slf4j/jul-to-slf4j "1.7.26"]
                  [org.slf4j/log4j-over-slf4j "1.7.26"]]
 
-  :description "Pedestal server as a Clojure Component"
+  :description "A Pedestal server offered as a Clojure Component."
 
   :url "https://github.com/nedap/components.pedestal"
 

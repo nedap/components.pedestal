@@ -17,7 +17,7 @@
 (speced/def-with-doc ::expand-routes?
   "Should the routes be expanded with `io.pedestal.http.route/expand-routes`?
 
-That may or may not be necessary, depending on the chosen routes syntax"
+That may or may not be necessary, depending on the chosen routes syntax."
   boolean?)
 
 (speced/def-with-doc ::uninitialized-component
@@ -29,4 +29,4 @@ That may or may not be necessary, depending on the chosen routes syntax"
   (spec/merge ::uninitialized-component
               (spec/keys :req [::router/component ::pedestal-options])))
 
-(speced/def-with-doc ::component "This component" ::initialized-component)
+(speced/def-with-doc ::component "The configuration data for a Pedestal server." ::initialized-component)

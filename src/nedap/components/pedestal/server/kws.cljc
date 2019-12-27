@@ -8,4 +8,4 @@
 (def dependencies [::router/component ;; this dependency is important: it guarantees that `(reset)` will reload routes
                    ::service/component])
 
-(speced/def-with-doc ::component "This component" (spec/keys :req [::service/component]))
+(speced/def-with-doc ::component "A Pedestal server." (spec/keys :req [::service/component]))
