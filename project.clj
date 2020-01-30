@@ -1,5 +1,5 @@
 ;; Please don't bump the library version by hand - use ci.release-workflow instead.
-(defproject com.nedap.staffing-solutions/components.pedestal "1.1.0-alpha7"
+(defproject com.nedap.staffing-solutions/components.pedestal "1.1.0-alpha8"
   ;; Please keep the dependencies sorted a-z.
   :dependencies [[ch.qos.logback/logback-classic "1.2.3"
                   :exclusions [org.slf4j/slf4j-api]]

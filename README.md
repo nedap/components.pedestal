@@ -21,7 +21,7 @@ This library delivers:
 ## Installation
 
 ```clojure
-[com.nedap.staffing-solutions/components.pedestal "1.1.0-alpha7"]
+[com.nedap.staffing-solutions/components.pedestal "1.1.0-alpha8"]
 ```
 
 ## Documentation
