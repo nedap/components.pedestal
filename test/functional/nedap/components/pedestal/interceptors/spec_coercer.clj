@@ -3,9 +3,8 @@
    [clojure.spec.alpha :as spec]
    [clojure.test :refer :all]
    [io.pedestal.http :as http]
-   [io.pedestal.http.route.definition :refer [defroutes]]
-   [io.pedestal.interceptor :as interceptor]
-   [io.pedestal.interceptor.chain :as interceptor.chain]
+   [io.pedestal.test :refer [response-for]]
+   [medley.core :refer [deep-merge]]
    [nedap.components.pedestal.interceptors.spec-coercer :as sut]
    [ring.util.response]))
 
@@ -13,58 +12,34 @@
 
 (spec/def ::api (spec/keys :req-un [::age]))
 
-(defn control [context]
-  (assoc context :response (ring.util.response/response "Hello")))
+(def control
+  {:name  ::control
+   :enter (fn [context]
+            (update context :response deep-merge (ring.util.response/response "Hello")))})
 
-(def sut (sut/param-spec-interceptor ::api :params))
+(def service-fn
+  (-> {::http/routes #{["/control" :get control :route-name ::control]
+                       ["/sut" :get [(sut/param-spec-interceptor ::api :params), control] :route-name ::sut]}}
+      http/create-servlet
+      ::http/service-fn))
 
-(def default-interceptor-chain
-  (->> (io.pedestal.http/default-interceptors
-        {:env          :test
-         ::http/routes #{["/" :get control :route-name ::control]}})
-       (:io.pedestal.http/interceptors)))
+(deftest status-and-body
+  (are [endpoint expected-status expected-body] (testing endpoint
+                                                  (let [{:keys [status body]} (response-for service-fn :get endpoint)]
+                                                    (is (= expected-status
+                                                           status))
+                                                    (is (= expected-body
+                                                           body)))
+                                                  true)
 
-(def interceptor-chain-without-sut (->> control
-                                        interceptor/interceptor
-                                        (conj default-interceptor-chain)))
+    "/control"         200 "Hello"
+    "/sut"             422 "{:explanation \"#:nedap.utils.spec.api{:invalid? true} - failed: (contains? % :age) spec: :functional.nedap.components.pedestal.interceptors.spec-coercer/api\\n\"}"
 
-(def interceptor-chain-with-sut (->> sut
-                                     interceptor/interceptor
-                                     (conj interceptor-chain-without-sut)))
+    "/control?age="    200 "Hello"
+    "/sut?age="        422 "{:explanation \"\\\"\\\" - failed: int? in: [:age] at: [:age] spec: :functional.nedap.components.pedestal.interceptors.spec-coercer/age\\n\"}"
 
-(def new-request {::interceptor.chain/queue []
-                  :request                  {:scheme         :http
-                                             :request-method :get
-                                             :protocol       "HTTP/1.1"
-                                             :headers        {}
-                                             :server-port    80
-                                             :remote-addr    "0.0.0.0"
-                                             :server-name    "localhost"
-                                             :uri            "/"}})
+    "/control?age=42"  200 "Hello"
+    "/sut?age=42"      200 "Hello"
 
-(deftest works
-  (are [chain input-params expected-status expected-coerced-params] (testing input-params
-                                                                      (let [req (-> new-request
-                                                                                    (assoc-in [:request :params] input-params))
-
-                                                                            {{:keys [params]}
-                                                                             :request
-
-                                                                             {:keys [status]}
-                                                                             :response}
-                                                                            (interceptor.chain/execute req chain)]
-
-                                                                        (is (= expected-status
-                                                                               status))
-                                                                        (is (= expected-coerced-params
-                                                                               params)))
-                                                                      true)
-
-    interceptor-chain-without-sut {}           404 {}
-    interceptor-chain-with-sut    {}           422 {}
-    interceptor-chain-without-sut {:age ""}    404 {:age ""}
-    interceptor-chain-with-sut    {:age ""}    422 {:age ""}
-    interceptor-chain-without-sut {:age "42"}  404 {:age "42"}
-    interceptor-chain-with-sut    {:age "42"}  404 {:age 42}
-    interceptor-chain-without-sut {:age "aaa"} 404 {:age "aaa"}
-    interceptor-chain-with-sut    {:age "aaa"} 422 {:age "aaa"}))
+    "/control?age=aaa" 200 "Hello"
+    "/sut?age=aaa"     422 "{:explanation \"\\\"aaa\\\" - failed: int? in: [:age] at: [:age] spec: :functional.nedap.components.pedestal.interceptors.spec-coercer/age\\n\"}"))
