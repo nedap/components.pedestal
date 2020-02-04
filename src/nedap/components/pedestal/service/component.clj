@@ -39,7 +39,10 @@
                  dev?             (pedestal.http/dev-interceptors))]
     (merge this config)))
 
+(defn stop [this]
+  {})
+
 (speced/defn new [^::service/uninitialized-component opts]
   (implement opts
     component/start start
-    component/stop  identity))
+    component/stop  stop))

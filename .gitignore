@@ -12,6 +12,7 @@
 .eastwood
 .idea/
 .nrepl-port
+.rebl/
 .repl
 /.lein-*
 /checkouts
@@ -19,6 +20,7 @@
 /logs/
 /target
 build/
+coverage/
 out/
 pom.xml
 pom.xml.asc
