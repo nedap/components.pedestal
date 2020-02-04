@@ -42,7 +42,6 @@ Normally true, except on `:test` env."
   (when (and server
              (start-stop-predicate service))
     (pedestal.http/stop server))
-  (assoc this ::server nil)
   {})
 
 (defn new
