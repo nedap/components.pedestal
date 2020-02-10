@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+  <suppress>
+    <!-- Added on 2020-02-7 by vemv: only affects the .NET platform. See https://github.com/jeremylong/DependencyCheck/issues/2464 -->
+    <notes><![CDATA[
+    file name: msgpack-0.6.12.jar
+    ]]></notes>
+    <gav regex="true">^org\.msgpack:msgpack.0\.6\.12$</gav>
+    <cve>CVE-2020-5234</cve>
+  </suppress>
 </suppressions>

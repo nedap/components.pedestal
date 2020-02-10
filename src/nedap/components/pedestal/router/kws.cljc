@@ -1,7 +1,7 @@
 (ns nedap.components.pedestal.router.kws
   (:require
-   [nedap.speced.def :as speced]
-   [clojure.spec.alpha :as spec]))
+   [clojure.spec.alpha :as spec]
+   [nedap.speced.def :as speced]))
 
 (speced/def-with-doc ::routes
   "The routes configured for this application. A 'routes definition object' in any format Pedestal understands."

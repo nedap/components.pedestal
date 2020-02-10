@@ -34,7 +34,7 @@ jobs:
           name: 'Run JVM tests, reporting coverage'
           command: lein with-profile -dev,+test trampoline cloverage --lcov --junit -o coverage/
       - run:
-          name: 'Ensure production isolation, check for boxed math'
+          name: 'Ensure artifact isolation, inform of boxed math'
           command: lein with-profile -dev,+check check
       - store_test_results:
           path: ~/repo/coverage
@@ -58,7 +58,10 @@ jobs:
       - run:
           name: release to JFrog
           command: lein deploy
-          
+      - run:
+          name: release to Clojars
+          command: lein deploy clojars          
+
 workflows:
   version: 2
   CircleCI:
