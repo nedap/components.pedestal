@@ -10,7 +10,8 @@
    [nedap.utils.modular.api :refer [implement]]))
 
 (def prod-map
-  {::pedestal.http/resource-path     "/public"
+  {::pedestal.http/join?             false
+   ::pedestal.http/resource-path     "/public"
    ::pedestal.http/type              :jetty
    ::pedestal.http/port              8080
    ::pedestal.http/container-options {:h2c? true
