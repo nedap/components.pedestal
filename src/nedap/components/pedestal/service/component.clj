@@ -12,8 +12,8 @@
 (speced/def-with-doc ::pedestal.http/join?
   "A true value blocks the thread until server ends.
   
-  Warning: Bloking the server thread can interfere with shutdown hooks
-  that would need access to the started component system.
+  Warning: Blocking the server thread (true value)can interfere with shutdown
+  hooks that would need access to the started component/system.
   
   Default to false (non-blocking)."
   boolean?)
