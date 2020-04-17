@@ -9,6 +9,15 @@
    [nedap.speced.def :as speced]
    [nedap.utils.modular.api :refer [implement]]))
 
+(speced/def-with-doc ::pedestal.http/join?
+  "A true value blocks the thread until server ends.
+  
+  Warning: Bloking the server thread can interfere with shutdown hooks
+  that would need access to the started component system.
+  
+  Default to false (non-blocking)."
+  boolean?)
+
 (def prod-map
   {::pedestal.http/join?             false
    ::pedestal.http/resource-path     "/public"
@@ -19,8 +28,7 @@
                                       :ssl? false}})
 
 (def dev-map
-  {::pedestal.http/join?           false
-   ::pedestal.http/allowed-origins {:creds true :allowed-origins (constantly true)}
+  {::pedestal.http/allowed-origins {:creds true :allowed-origins (constantly true)}
    ::pedestal.http/secure-headers  {:content-security-policy-settings {:object-src "'none'"}}})
 
 (speced/defn ^::service/component start [{{::router/keys [routes]} ::router/component
