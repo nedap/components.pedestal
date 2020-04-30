@@ -1,5 +1,6 @@
 (ns nedap.components.pedestal.service.component
   (:require
+   [clojure.spec.alpha :as spec]
    [com.stuartsierra.component :as component]
    [io.pedestal.http :as pedestal.http]
    [io.pedestal.http.route :as route]
@@ -9,18 +10,8 @@
    [nedap.speced.def :as speced]
    [nedap.utils.modular.api :refer [implement]]))
 
-(speced/def-with-doc ::pedestal.http/join?
-  "A true value blocks the thread until server ends.
-  
-  Warning: Blocking the server thread (true value)can interfere with shutdown
-  hooks that would need access to the started component/system.
-  
-  Default to false (non-blocking)."
-  boolean?)
-
 (def prod-map
-  {::pedestal.http/join?             false
-   ::pedestal.http/resource-path     "/public"
+  {::pedestal.http/resource-path     "/public"
    ::pedestal.http/type              :jetty
    ::pedestal.http/port              8080
    ::pedestal.http/container-options {:h2c? true
@@ -35,6 +26,12 @@
                                           ::service/keys           [defaults-kind pedestal-options expand-routes?]
                                           :as                      ^::service/initialized-component this}]
   (let [dev? (= :dev defaults-kind)
+
+        _ (when (and (not dev?)
+                     (not (spec/valid? ::service/pedestal-production-options pedestal-options)))
+            (throw (ex-info "Invalid :pedestal-options for production"
+                            (spec/explain-data ::service/pedestal-production-options pedestal-options))))
+
         ;; routes may be passed directly (via `::router/component`) or indirectly (via `pedestal-options`). Handle that:
         routes (when routes
                  (if expand-routes?
