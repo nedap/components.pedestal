@@ -8,7 +8,8 @@
    [nedap.components.pedestal.router.kws :as router]
    [nedap.components.pedestal.service.kws :as service]
    [nedap.speced.def :as speced]
-   [nedap.utils.modular.api :refer [implement]]))
+   [nedap.utils.modular.api :refer [implement]]
+   [nedap.utils.spec.api :refer [check!]]))
 
 (def prod-map
   {::pedestal.http/resource-path     "/public"
@@ -26,11 +27,7 @@
                                           ::service/keys           [defaults-kind pedestal-options expand-routes?]
                                           :as                      ^::service/initialized-component this}]
   (let [dev? (= :dev defaults-kind)
-
-        _ (when (and (not dev?)
-                     (not (spec/valid? ::service/pedestal-production-options pedestal-options)))
-            (throw (ex-info "Invalid :pedestal-options for production"
-                            (spec/explain-data ::service/pedestal-production-options pedestal-options))))
+        _ (when-not dev? (check! ::service/pedestal-production-options pedestal-options))
 
         ;; routes may be passed directly (via `::router/component`) or indirectly (via `pedestal-options`). Handle that:
         routes (when routes
