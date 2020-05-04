@@ -18,13 +18,15 @@ Warning: Blocking the server thread (`true` value) can interfere with shutdown
 hooks that would need access to the started Component System."
   boolean?)
 
-(speced/def-with-doc ::pedestal-production-options
-  "Somewhat more strict spec for pedestal-options when running in production."
-  (spec/keys :req [::pedestal.http/join?]))
-
 (speced/def-with-doc ::pedestal-options
   "To be deep-merged with the component's defaults."
-  map?)
+  (spec/keys :req []))
+
+(speced/def-with-doc ::pedestal-production-options
+  "Somewhat more strict spec for pedestal-options when running in production."
+  (spec/merge
+    ::pedestal-options
+    (spec/keys :req [::pedestal.http/join?])))
 
 (speced/def-with-doc ::expand-routes?
   "Should the routes be expanded with `io.pedestal.http.route/expand-routes`?
