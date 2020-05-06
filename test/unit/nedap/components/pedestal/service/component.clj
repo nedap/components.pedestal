@@ -17,18 +17,31 @@
                                      (false? expected))))
 
       "Non filled"
-      {}                                                        false
+      {}                                                          false
 
       "No pedestal options"
       {::service/defaults-kind  :dev
        ::service/expand-routes? false
-       ::router/component       {::router/routes #{}}},         false
+       ::router/component       {::router/routes #{}}},           false
 
       "With pedestal options"
       {::service/defaults-kind    :dev
        ::service/expand-routes?   false
        ::router/component         {::router/routes #{}}
-       ::service/pedestal-options {::pedestal.http/port 8080}}, true))
+       ::service/pedestal-options {::pedestal.http/port 8080}},   true
+
+      "Without join? option in production"
+      {::service/defaults-kind    :production
+       ::service/expand-routes?   false
+       ::router/component         {::router/routes #{}}
+       ::service/pedestal-options {::pedestal.http/port 8080}},   false
+
+      "With join? option in production"
+      {::service/defaults-kind    :production
+       ::service/expand-routes?   false
+       ::router/component         {::router/routes #{}}
+       ::service/pedestal-options {::pedestal.http/port 8080
+                                   ::pedestal.http/join? false}}, true))
 
   (testing "pedestal options are observed"
     (testing "flat options are assoc'ed"

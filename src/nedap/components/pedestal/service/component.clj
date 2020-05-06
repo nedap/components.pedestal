@@ -1,5 +1,6 @@
 (ns nedap.components.pedestal.service.component
   (:require
+   [clojure.spec.alpha :as spec]
    [com.stuartsierra.component :as component]
    [io.pedestal.http :as pedestal.http]
    [io.pedestal.http.route :as route]
@@ -7,7 +8,8 @@
    [nedap.components.pedestal.router.kws :as router]
    [nedap.components.pedestal.service.kws :as service]
    [nedap.speced.def :as speced]
-   [nedap.utils.modular.api :refer [implement]]))
+   [nedap.utils.modular.api :refer [implement]]
+   [nedap.utils.spec.api :refer [check!]]))
 
 (def prod-map
   {::pedestal.http/resource-path     "/public"
@@ -18,14 +20,15 @@
                                       :ssl? false}})
 
 (def dev-map
-  {::pedestal.http/join?           false
-   ::pedestal.http/allowed-origins {:creds true :allowed-origins (constantly true)}
+  {::pedestal.http/allowed-origins {:creds true :allowed-origins (constantly true)}
    ::pedestal.http/secure-headers  {:content-security-policy-settings {:object-src "'none'"}}})
 
 (speced/defn ^::service/component start [{{::router/keys [routes]} ::router/component
                                           ::service/keys           [defaults-kind pedestal-options expand-routes?]
                                           :as                      ^::service/initialized-component this}]
   (let [dev? (= :dev defaults-kind)
+        _ (when-not dev? (check! ::service/pedestal-production-options pedestal-options))
+
         ;; routes may be passed directly (via `::router/component`) or indirectly (via `pedestal-options`). Handle that:
         routes (when routes
                  (if expand-routes?

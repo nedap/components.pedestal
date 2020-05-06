@@ -86,7 +86,7 @@
 
              :provided {:dependencies [[com.google.guava/guava "25.1-jre" #_"not a real depenency - satisfies NVD"]]}
 
-             :nvd      {:plugins      [[lein-nvd "1.3.1"]]
+             :nvd      {:plugins      [[lein-nvd "1.4.0"]]
                         :nvd          {:suppression-file "nvd_suppressions.xml"}
                         ;; These are lein-nvd transitive dependencies, copied verbatim, which Lein could otherwise alter.
                         :dependencies [[com.esotericsoftware/minlog "1.3"]
@@ -97,7 +97,7 @@
                                        [joda-time "2.10" #_"For clj-time"]
                                        [org.apache.commons/commons-compress "1.19"]
                                        [org.json/json "20140107"]
-                                       [org.owasp/dependency-check-core "5.2.2"]]}
+                                       [org.owasp/dependency-check-core "5.3.2"]]}
 
              :ci       {:pedantic?    :abort
                         :jvm-opts     ["-Dclojure.main.report=stderr"]
