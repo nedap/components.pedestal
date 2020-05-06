@@ -13,6 +13,7 @@
                  [io.pedestal/pedestal.service "0.5.7"]
                  [medley "1.2.0"]
                  [org.clojure/clojure "1.10.1"]
+                 [org.clojure/tools.analyzer.jvm "0.7.3" #_"Transitive"]
                  [org.slf4j/jcl-over-slf4j "1.7.26"]
                  [org.slf4j/jul-to-slf4j "1.7.26"]
                  [org.slf4j/log4j-over-slf4j "1.7.26"]]
