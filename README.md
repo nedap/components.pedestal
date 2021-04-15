@@ -5,7 +5,6 @@ This library delivers:
 * A [Pedestal](https://github.com/pedestal/pedestal) server as a component
   * Featuring refined integration with the Reloaded workflow
     * Otherwise Pedestal<->Reloaded integration can be hacky or incomplete.
-  * Including logging dependencies, so that apps don't repeat the same dep declarations.
 * Pedestal service configuration
 * A [dependency injection mechanism](https://github.com/grzm/component.pedestal)
 * A spec-coercion interceptor
