@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  shellcheck: circleci/shellcheck@2.2.3
+
 commands:
   setup-env:
     steps:
@@ -10,6 +13,7 @@ commands:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: lein with-profile -dev,+test,+ci deps
+      - run: cd .circleci/nvd; lein deps
       - save_cache:
           paths:
             - ~/.m2
@@ -23,7 +27,7 @@ executors:
     environment:
       LEIN_ROOT: "true"
       JVM_OPTS: -Xmx3200m
-      DEPENDENCY_CHECK_COMMAND: "lein with-profile -dev,+nvd nvd check"
+      NVD_SCRIPT: ".circleci/nvd/run.sh"
 
 jobs:
   build:
@@ -44,7 +48,9 @@ jobs:
     executor: lein-executor
     steps:
       - setup-env
-      - run: "eval $DEPENDENCY_CHECK_COMMAND || eval $DEPENDENCY_CHECK_COMMAND || eval $DEPENDENCY_CHECK_COMMAND"
+      - shellcheck/install
+      - run: "shellcheck $NVD_SCRIPT"
+      - run: "$NVD_SCRIPT"
   deploy:
     executor: lein-executor
     steps:
