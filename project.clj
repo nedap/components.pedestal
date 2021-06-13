@@ -80,21 +80,6 @@
                         :jvm-opts     ["-Dclojure.core.async.go-checking=true"
                                        "-Duser.language=en-US"]}
 
-             :provided {:dependencies [[com.google.guava/guava "25.1-jre" #_"not a real depenency - satisfies NVD"]]}
-
-             :nvd      {:plugins      [[lein-nvd "1.4.0"]]
-                        :nvd          {:suppression-file "nvd_suppressions.xml"}
-                        ;; These are lein-nvd transitive dependencies, copied verbatim, which Lein could otherwise alter.
-                        :dependencies [[com.esotericsoftware/minlog "1.3"]
-                                       [com.github.spullara.mustache.java/compiler "0.8.17"]
-                                       [com.google.code.gson/gson "2.8.5"]
-                                       [com.h2database/h2 "1.4.196"]
-                                       [com.h3xstream.retirejs/retirejs-core "3.0.1"]
-                                       [joda-time "2.10" #_"For clj-time"]
-                                       [org.apache.commons/commons-compress "1.19"]
-                                       [org.json/json "20140107"]
-                                       [org.owasp/dependency-check-core "5.3.2"]]}
-
              :ci       {:pedantic?    :abort
                         :jvm-opts     ["-Dclojure.main.report=stderr"]
                         :global-vars  {*assert* true} ;; `ci.release-workflow` relies on runtime assertions
