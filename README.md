@@ -20,7 +20,7 @@ This library delivers:
 ## Installation
 
 ```clojure
-[com.nedap.staffing-solutions/components.pedestal "2.0.1-alpha1"]
+[com.nedap.staffing-solutions/components.pedestal "2.0.1-alpha2"]
 ```
 
 ## Documentation
