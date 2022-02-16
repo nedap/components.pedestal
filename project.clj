@@ -3,8 +3,8 @@
   ;; Please keep the dependencies sorted a-z.
   :dependencies [[com.grzm/component.pedestal "0.1.7"
                   :exclusions [ring/ring-codec]]
-                 [com.nedap.staffing-solutions/utils.modular "2.1.0"]
-                 [com.nedap.staffing-solutions/speced.def "2.0.0"
+                 [com.nedap.staffing-solutions/utils.modular "2.2.0"]
+                 [com.nedap.staffing-solutions/speced.def "2.1.1"
                   :exclusions [org.clojure/spec.alpha]]
                  [com.stuartsierra/component "0.4.0"]
                  [io.pedestal/pedestal.jetty "0.5.7"]
@@ -26,13 +26,9 @@
 
   :signing {:gpg-key "releases-staffingsolutions@nedap.com"}
 
-  :repositories {"releases" {:url      "https://nedap.jfrog.io/nedap/staffing-solutions/"
-                             :username :env/artifactory_user
-                             :password :env/artifactory_pass}}
-
-  :repository-auth {#"https://nedap.jfrog\.io/nedap/staffing-solutions/"
-                    {:username :env/artifactory_user
-                     :password :env/artifactory_pass}}
+  :repositories        {"github" {:url "https://maven.pkg.github.com/nedap/*"
+                                  :username "github"
+                                  :password :env/github_token}}
 
   :deploy-repositories {"clojars" {:url      "https://clojars.org/repo"
                                    :username :env/clojars_user

@@ -18,12 +18,11 @@ commands:
 executors:
   lein-executor:
     docker:
-      - image: circleci/clojure:openjdk-8-lein-2.9.1
+      - image: cimg/clojure:1.10
     working_directory: ~/repo
     environment:
       LEIN_ROOT: "true"
       JVM_OPTS: -Xmx3200m
-      DEPENDENCY_CHECK_COMMAND: "lein with-profile -dev,+nvd nvd check"
 
 jobs:
   build:
@@ -44,7 +43,7 @@ jobs:
     executor: lein-executor
     steps:
       - setup-env
-      - run: "eval $DEPENDENCY_CHECK_COMMAND || eval $DEPENDENCY_CHECK_COMMAND || eval $DEPENDENCY_CHECK_COMMAND"
+      - run: lein with-profile -dev,+nvd nvd check
   deploy:
     executor: lein-executor
     steps:
@@ -56,32 +55,29 @@ jobs:
           name: Perform pre-release sanity check
           command: lein with-profile -dev,+ci,+ncrw run -m nedap.ci.release-workflow.api sanity-check
       - run:
-          name: release to JFrog
-          command: lein deploy
-      - run:
           name: release to Clojars
-          command: lein deploy clojars          
+          command: lein deploy clojars
 
 workflows:
   version: 2
   CircleCI:
     jobs:
       - build:
-          context: JFrog
+          context: Github
           filters:
             branches:
               only: /.*/
             tags:
               only: /^v\d+\.\d+\.\d+(-alpha\d+)?$/
       - nvd:
-          context: JFrog
+          context: Github
           filters:
             branches:
               only: /.*/
             tags:
               only: /^v\d+\.\d+\.\d+(-alpha\d+)?$/
       - deploy:
-          context: JFrog
+          context: Clojars
           requires:
             - build
           filters:
