@@ -79,6 +79,7 @@ workflows:
       - deploy:
           context:
             - Clojars
+            - Github
             - GPG
           requires:
             - build
