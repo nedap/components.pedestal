@@ -44,6 +44,10 @@ jobs:
     steps:
       - setup-env
       - run: lein with-profile -dev,+nvd nvd check
+      - store_artifacts:
+          path: ~/repo/target/nvd
+      - store_test_results:
+          path: ~/repo/target/nvd
   deploy:
     executor: lein-executor
     steps:
@@ -63,14 +67,12 @@ workflows:
   CircleCI:
     jobs:
       - build:
-          context: Github
           filters:
             branches:
               only: /.*/
             tags:
               only: /^v\d+\.\d+\.\d+(-alpha\d+)?$/
       - nvd:
-          context: Github
           filters:
             branches:
               only: /.*/

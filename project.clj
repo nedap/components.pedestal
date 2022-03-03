@@ -76,7 +76,7 @@
                         :jvm-opts     ["-Dclojure.core.async.go-checking=true"
                                        "-Duser.language=en-US"]}
 
-             :provided {:dependencies [[com.google.guava/guava "25.1-jre" #_"not a real depenency - satisfies NVD"]]}
+             :provided {:dependencies [[com.google.guava/guava "31.1-jre" #_"not a real depenency - satisfies NVD"]]}
 
              :nvd      {:plugins      [[lein-nvd "1.4.0"]]
                         :nvd          {:suppression-file "nvd_suppressions.xml"}}
