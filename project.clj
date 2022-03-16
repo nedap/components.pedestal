@@ -1,17 +1,17 @@
 ;; Please don't bump the library version by hand - use ci.release-workflow instead.
-(defproject com.nedap.staffing-solutions/components.pedestal "2.0.0"
+(defproject com.nedap.staffing-solutions/components.pedestal "2.0.1-alpha3"
   ;; Please keep the dependencies sorted a-z.
-  :dependencies [[com.grzm/component.pedestal "0.1.7"
-                  :exclusions [ring/ring-codec]]
-                 [com.nedap.staffing-solutions/utils.modular "2.1.0"]
-                 [com.nedap.staffing-solutions/speced.def "2.0.0"
-                  :exclusions [org.clojure/spec.alpha]]
-                 [com.stuartsierra/component "0.4.0"]
-                 [io.pedestal/pedestal.jetty "0.5.7"]
-                 [io.pedestal/pedestal.service "0.5.7"]
-                 [medley "1.2.0"]
-                 [org.clojure/clojure "1.10.1"]
-                 [org.clojure/tools.analyzer.jvm "0.7.3" #_"Transitive"]]
+  :dependencies [[com.grzm/component.pedestal "0.1.7"]
+                 [com.nedap.staffing-solutions/utils.modular "2.2.0"]
+                 [com.nedap.staffing-solutions/speced.def "2.1.1"]
+                 [com.stuartsierra/component "1.0.0"]
+                 [io.pedestal/pedestal.jetty "0.5.10"]
+                 [io.pedestal/pedestal.service "0.5.10"]
+                 [medley "1.3.0"]
+                 [org.clojure/clojure "1.10.3"]]
+
+  :managed-dependencies [[ring/ring-codec "1.1.1"]
+                         [ring/ring-core "1.9.5" #_"nvd"]]
 
   :exclusions [org.clojure/clojurescript]
 
@@ -26,13 +26,9 @@
 
   :signing {:gpg-key "releases-staffingsolutions@nedap.com"}
 
-  :repositories {"releases" {:url      "https://nedap.jfrog.io/nedap/staffing-solutions/"
-                             :username :env/artifactory_user
-                             :password :env/artifactory_pass}}
-
-  :repository-auth {#"https://nedap.jfrog\.io/nedap/staffing-solutions/"
-                    {:username :env/artifactory_user
-                     :password :env/artifactory_pass}}
+  :repositories        {"github" {:url "https://maven.pkg.github.com/nedap/*"
+                                  :username "github"
+                                  :password :env/github_token}}
 
   :deploy-repositories {"clojars" {:url      "https://clojars.org/repo"
                                    :username :env/clojars_user
@@ -80,27 +76,17 @@
                         :jvm-opts     ["-Dclojure.core.async.go-checking=true"
                                        "-Duser.language=en-US"]}
 
-             :provided {:dependencies [[com.google.guava/guava "25.1-jre" #_"not a real depenency - satisfies NVD"]]}
+             :provided {:dependencies [[com.google.guava/guava "31.1-jre" #_"not a real depenency - satisfies NVD"]]}
 
              :nvd      {:plugins      [[lein-nvd "1.4.0"]]
-                        :nvd          {:suppression-file "nvd_suppressions.xml"}
-                        ;; These are lein-nvd transitive dependencies, copied verbatim, which Lein could otherwise alter.
-                        :dependencies [[com.esotericsoftware/minlog "1.3"]
-                                       [com.github.spullara.mustache.java/compiler "0.8.17"]
-                                       [com.google.code.gson/gson "2.8.5"]
-                                       [com.h2database/h2 "1.4.196"]
-                                       [com.h3xstream.retirejs/retirejs-core "3.0.1"]
-                                       [joda-time "2.10" #_"For clj-time"]
-                                       [org.apache.commons/commons-compress "1.19"]
-                                       [org.json/json "20140107"]
-                                       [org.owasp/dependency-check-core "5.3.2"]]}
+                        :nvd          {:suppression-file "nvd_suppressions.xml"}}
 
              :ncrw       {:global-vars    {*assert* true} ;; `ci.release-workflow` relies on runtime assertions
                           :source-paths   ^:replace []
                           :test-paths     ^:replace []
                           :resource-paths ^:replace []
                           :plugins        ^:replace []
-                          :dependencies   ^:replace [[com.nedap.staffing-solutions/ci.release-workflow "1.13.1"]]}
+                          :dependencies   ^:replace [[com.nedap.staffing-solutions/ci.release-workflow "1.14.1"]]}
 
              :ci   {:pedantic?    :abort
                     :jvm-opts     ["-Dclojure.main.report=stderr"]}})
