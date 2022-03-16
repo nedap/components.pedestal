@@ -1,5 +1,5 @@
 ;; Please don't bump the library version by hand - use ci.release-workflow instead.
-(defproject com.nedap.staffing-solutions/components.pedestal "2.0.1-alpha3"
+(defproject com.nedap.staffing-solutions/components.pedestal "2.0.1"
   ;; Please keep the dependencies sorted a-z.
   :dependencies [[com.grzm/component.pedestal "0.1.7"]
                  [com.nedap.staffing-solutions/utils.modular "2.2.0"]
